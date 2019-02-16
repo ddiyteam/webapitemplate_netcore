@@ -22,9 +22,9 @@ Usings
  - .NET Core builtin HttpClientFactory with Polly (https://jsonplaceholder.typicode.com/ as fake mock api)
  - XUnit with Moq and AutoFixture for unit test   
 
-GitHub repository
+VSIX Package link on Visual Studio marketplace
 ----
-https://github.com
+https://marketplace.visualstudio.com/items?itemName=ddiyteam.WebApiTemplateNetCore
 
 Preview
 ----
