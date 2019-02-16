@@ -1,0 +1,39 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>Service.BLL</Name>
+    <Description>
+    </Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>
+    </ProjectSubType>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>Service.BLL</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <CreateInPlace>true</CreateInPlace>
+    <Icon>__TemplateIcon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="$ext_safeprojectname$.BLL.csproj" File="Service.BLL.csproj" ReplaceParameters="true">
+      <Folder Name="Contracts" TargetFolderName="Contracts">
+        <ProjectItem ReplaceParameters="true" TargetFileName="ICarsService.cs">ICarsService.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="IJwtTokenService.cs">IJwtTokenService.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="IWebProxyTodoMock.cs">IWebProxyTodoMock.cs</ProjectItem>
+      </Folder>
+      <Folder Name="Mappings" TargetFolderName="Mappings">
+        <ProjectItem ReplaceParameters="true" TargetFileName="CarsMappingProfile.cs">CarsMappingProfile.cs</ProjectItem>
+      </Folder>
+      <Folder Name="Models" TargetFolderName="Models">
+        <ProjectItem ReplaceParameters="true" TargetFileName="Car.cs">Car.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="CarsBLLOptions.cs">CarsBLLOptions.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="CarType.cs">CarType.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Todo.cs">Todo.cs</ProjectItem>
+      </Folder>
+      <ProjectItem ReplaceParameters="true" TargetFileName="CarsService.cs">CarsService.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="JwtTokenService.cs">JwtTokenService.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="TodosMockProxyService.cs">TodosMockProxyService.cs</ProjectItem>
+    </Project>
+  </TemplateContent>
+</VSTemplate>

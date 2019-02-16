@@ -1,0 +1,45 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="ProjectGroup">
+  <TemplateData>
+    <Name>Web API Template (.NET Core)</Name>
+    <Description>.NET Core WebAPI template with JWT token auth, DB connection and HTTP client proxy examples.</Description>
+    <ProjectType>CSharp</ProjectType> 
+	<ShowByDefault>true</ShowByDefault>	
+    <SortOrder>10</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>WebService</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <CreateInPlace>true</CreateInPlace>
+	<FrameworkVersion>netcoreapp2.2</FrameworkVersion>
+	<BuildOnLoad>true</BuildOnLoad>
+	<CreateInPlace>true</CreateInPlace>
+    <Icon>Icon.png</Icon>
+  </TemplateData>
+  <TemplateContent>
+	<ProjectCollection>
+		<ProjectTemplateLink ProjectName="$safeprojectname$.API" CopyParameters="true">
+			Service.API\API.vstemplate
+		</ProjectTemplateLink>
+		<ProjectTemplateLink ProjectName="$safeprojectname$.BLL" CopyParameters="true">
+			Service.BLL\BLL.vstemplate
+		</ProjectTemplateLink>		
+		<ProjectTemplateLink ProjectName="$safeprojectname$.Configuration" CopyParameters="true">
+			Service.Configuration\Configuration.vstemplate
+		</ProjectTemplateLink>
+		<ProjectTemplateLink ProjectName="$safeprojectname$.DAL.MySql" CopyParameters="true">
+			Service.DAL.MySql\DAL.MySql.vstemplate
+		</ProjectTemplateLink>	
+		<SolutionFolder Name="Tests">			
+			<ProjectTemplateLink ProjectName="$safeprojectname$.BLL.Tests" CopyParameters="true">
+				Service.BLL.Tests\BLL.Tests.vstemplate
+			</ProjectTemplateLink>
+		</SolutionFolder>
+		<SolutionFolder Name="DbUp">			
+			<ProjectTemplateLink ProjectName="$safeprojectname$.DbUp.MySql" CopyParameters="true">
+				Service.DbUp.MySql\DbUp.MySql.vstemplate
+			</ProjectTemplateLink>
+		</SolutionFolder>	
+	</ProjectCollection>    
+  </TemplateContent>
+</VSTemplate>
