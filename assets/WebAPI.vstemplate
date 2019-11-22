@@ -1,19 +1,22 @@
-<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="ProjectGroup">
+<VSTemplate Version="3.0.0" Type="ProjectGroup" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
   <TemplateData>
-    <Name>Web API Template (.NET Core)</Name>
-    <Description>.NET Core WebAPI template with JWT token auth, DB connection and HTTP client proxy examples.</Description>
-    <ProjectType>CSharp</ProjectType> 
-	<ShowByDefault>true</ShowByDefault>	
+    <Name>Web API Template (.NET Core 3.x)</Name>
+    <Description>.NET Core 3.x Web API template with JWT token auth, DB connection, Health checks and HTTP client proxy examples.</Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>Web</ProjectSubType>
+    <LanguageTag>C#</LanguageTag>
+    <PlatformTag>Windows</PlatformTag>
+    <PlatformTag>Linux</PlatformTag>
+    <PlatformTag>macOS</PlatformTag>
+    <ProjectTypeTag>Web</ProjectTypeTag>
+    <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>	
     <SortOrder>10</SortOrder>
     <CreateNewFolder>true</CreateNewFolder>
     <DefaultName>WebService</DefaultName>
     <ProvideDefaultName>true</ProvideDefaultName>
     <LocationField>Enabled</LocationField>
     <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
-    <CreateInPlace>true</CreateInPlace>
-	<FrameworkVersion>netcoreapp2.2</FrameworkVersion>
-	<BuildOnLoad>true</BuildOnLoad>
-	<CreateInPlace>true</CreateInPlace>
+    <CreateInPlace>true</CreateInPlace>	
     <Icon>Icon.png</Icon>
   </TemplateData>
   <TemplateContent>

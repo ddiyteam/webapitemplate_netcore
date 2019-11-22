@@ -25,7 +25,7 @@ namespace Service.API.Controllers
         /// Todos mock web proxy 
         /// </summary>
         /// <param name="mapper"></param>
-        /// <param name="carsService"></param>
+        /// <param name="todosMockService"></param>
         public TodoController(IMapper mapper, TodosMockProxyService todosMockService)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));

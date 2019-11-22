@@ -72,6 +72,11 @@ namespace Service.API.Controllers
             }
 
             var result = await _carsService.GetCarAsync(id);
+            if(result == null)
+            {
+                return NotFound(new { id } );
+            }
+
             return Ok(_mapper.Map<Car>(result));
         }
 
@@ -94,7 +99,7 @@ namespace Service.API.Controllers
             }
 
             car.Id = id;
-            var result = await _carsService.UpdateCarAsync(_mapper.Map<BLL.Models.Car>(car));
+            await _carsService.UpdateCarAsync(_mapper.Map<BLL.Models.Car>(car));
             return Ok();
         }
 
@@ -114,7 +119,7 @@ namespace Service.API.Controllers
                 return BadRequest();
             }
 
-            var result = await _carsService.DeleteCarAsync(id);
+            await _carsService.DeleteCarAsync(id);
             return Ok();
         }
 

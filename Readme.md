@@ -1,4 +1,4 @@
- ###  WebAPI template with JWT token auth, DB connection and HTTP client proxy examples.
+ ###  WebAPI template with JWT token auth, DB connection, Health checks and HTTP client proxy examples.
 
 Projects template description
 ----
@@ -12,25 +12,33 @@ Projects template description
 
 Usings
 ----
- - .NET Core 2.2 
+ - .NET Core 3.0 
  - Serilog for logging and exception handling
  - AutoMapper for models mappings
  - API versioning
  - Swagger for API documentation 
  - Micro-ORM Dapper with MySql repository  
  - DbUp for database migrations
+ - .Net Core health checks
  - .NET Core builtin HttpClientFactory with Polly (https://jsonplaceholder.typicode.com/ as fake mock api)
  - XUnit with Moq and AutoFixture for unit test   
-
-VSIX Package link on Visual Studio marketplace
-----
-https://marketplace.visualstudio.com/items?itemName=ddiyteam.WebApiTemplateNetCore
 
 Preview
 ----
 ![Solution template](assets/solutionScreenshot.png)
 
 ![Api](assets/swaggerUIScreenshot.png)
+
+How to use
+----
+- Install project template in Visual Studio 2019.<br/>
+Extensions -> Manage Extensions -> Online -> Visual Studio Marketplace -> Search: Web API Template (.NET Core 3.0)
+
+- Manualy download and install VSIX Package for Visual Studio 2019 from Visual Studio marketplace.<br/>   
+https://marketplace.visualstudio.com/items?itemName=ddiyteam.WebApiTemplateNetCore
+
+
+- Clone repository and open solution from WebApiTemplate folder in Visual Studio 2019 or Visual Studio Code directly.
 
 License
 ----

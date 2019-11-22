@@ -7,14 +7,13 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Serilog;
 using Service.API.Middleware;
 using Service.API.Models;
-using Service.API.Swagger;
 using Swashbuckle.AspNetCore.Filters;
-using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
 using System.Linq;
@@ -39,13 +38,14 @@ namespace Service.API
             services.Configure<AppSettings>(appSettingsSection);
             var appSettings = appSettingsSection.Get<AppSettings>();
 
+            services.AddControllers();                
 
             services.AddWebServices(
                 BLLOptionsSection: Configuration.GetSection("AppSettings"),
                 DALOptionSection: Configuration.GetSection("ConnectionStrings")
             );           
 
-            services.AddAutoMapper();             
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());             
             services.AddHttpClient();
 
             services.AddVersionedApiExplorer(opt =>
@@ -55,9 +55,7 @@ namespace Service.API
                 // note: this option is only necessary when versioning by url segment. the SubstitutionFormat
                 // can also be used to control the format of the API version in route templates
                 opt.SubstituteApiVersionInUrl = true;
-            });
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            });            
 
             services.AddApiVersioning(opt =>
             {                
@@ -91,15 +89,15 @@ namespace Service.API
                     opt.IncludeXmlComments(xmlPath);
                 }
 
-                opt.AddSecurityDefinition("oauth2", new ApiKeyScheme
+                opt.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
                     Description = "Authorization header. Example: \"bearer {token}\"",
-                    In = "header",
+                    In = ParameterLocation.Header,
                     Name = "authorization",
-                    Type = "apiKey"
+                    Type = SecuritySchemeType.ApiKey
                 });
                 opt.OperationFilter<SecurityRequirementsOperationFilter>();
-                opt.OperationFilter<SwaggerDefaultValues>();
+                //opt.OperationFilter<SwaggerDefaultValues>();
             });
 
             var key = Encoding.ASCII.GetBytes(appSettings.JwtSecretKey);
@@ -120,9 +118,9 @@ namespace Service.API
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key)                    
                 };
-            });
+            });            
 
-            services.AddSwaggerExamples();           
+            services.AddSwaggerExamplesFromAssemblyOf<Program>(); 
 
             var logger = new LoggerConfiguration()
                .Enrich.FromLogContext()
@@ -133,7 +131,7 @@ namespace Service.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IOptionsMonitor<AppSettings> optionsAccessor, IApiVersionDescriptionProvider provider)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
             if (env.IsDevelopment())
             {
@@ -144,11 +142,12 @@ namespace Service.API
                 app.UseHsts();
             }
 
-            app.UseCors("AllowSpecificOrigin");
-            app.UseAuthentication();
-            app.UseHttpContextMiddleware();
-
             app.UseStaticFiles();
+            app.UseRouting();
+
+            app.UseCors("AllowSpecificOrigin");
+            
+            app.UseHttpContextMiddleware();           
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -159,11 +158,17 @@ namespace Service.API
                         $"/swagger/{description.GroupName}/swagger.json",
                         description.GroupName.ToUpperInvariant());
                 }                           
-            });
-            
+            });            
+
             app.UseHttpsRedirection();
             app.UseAuthentication();
-            app.UseMvc();
+            app.UseAuthorization();
+
+            app.UseWebServices();
+
+            app.UseEndpoints(endpoints => {
+                endpoints.MapControllers();                
+            });
         }
 
         #region internal
@@ -180,18 +185,18 @@ namespace Service.API
             return xmlPath;
         }
 
-        private Info GetSwaggerDocInfo(ApiVersionDescription description)
+        private OpenApiInfo GetSwaggerDocInfo(ApiVersionDescription description)
         {
-            var info = new Info
+            var info = new OpenApiInfo
             {
                 Title = $"WebAPI {description.ApiVersion}",
                 Version = description.GroupName,
                 Description = "Web API Template",                
-                Contact = new Contact()
+                Contact = new OpenApiContact()
                 {
                     Name = "Web API service" 
                 },
-                License = new License()
+                License = new OpenApiLicense()
                 {
                     Name = "MIT"                    
                 }

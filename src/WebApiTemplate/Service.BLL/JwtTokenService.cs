@@ -7,7 +7,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Service.BLL
 {
@@ -20,7 +19,7 @@ namespace Service.BLL
             _options = options ?? throw new ArgumentNullException(nameof(options));
         }
 
-        public async Task<string> GenerateToken()
+        public string GenerateToken()
         {
             var nowDT = DateTime.UtcNow;
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -41,7 +40,7 @@ namespace Service.BLL
             return finalToken;
         }
 
-        public async Task<bool> ValidateToken(string token)
+        public bool ValidateToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var validationParameters = new TokenValidationParameters()
@@ -54,8 +53,7 @@ namespace Service.BLL
 
             try
             {
-                SecurityToken validatedToken;
-                IPrincipal principal = tokenHandler.ValidateToken(token, validationParameters, out validatedToken);
+                IPrincipal principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
                 return true;
             }
             catch

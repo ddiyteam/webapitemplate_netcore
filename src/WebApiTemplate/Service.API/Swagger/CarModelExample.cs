@@ -4,9 +4,9 @@ using System;
 
 namespace Service.API.Swagger
 {
-    public class CarModelExample : IExamplesProvider
+    public class CarModelExample : IExamplesProvider<Car>
     {
-        public object GetExamples()
+        public Car GetExamples()
         {
             var dnow = DateTime.UtcNow;
             return new Car
