@@ -2,7 +2,7 @@
 # Powershell script prepares multi-project zip template 
 #
 # Before runnig this script:
-# - manually export all projects as project teplates in VisualStudio
+# - manually export all projects as project teplates in VisualStudio (Project->Export Template)
 # - copy all exported zip files to template folder (near ps script)
 #
 # After runnig this script
@@ -25,30 +25,36 @@ foreach ($project in $projects) {
     {
         Expand-Archive "${folderPath}\${projectFullName}.zip" -DestinationPath "${folderPath}\output\${projectFullName}";
 
+
         #replaces for others files
         $files = Get-ChildItem "${folderPath}\output\${projectFullName}" *.* -Recurse -Exclude "MyTemplate.vstemplate", *.csproj | Where-Object { ! $_.PSIsContainer };
         foreach ($file in $files)
         {
             (Get-Content $file.PSPath) |
-            Foreach-Object { $_ -replace " ${baseName}\.", ' $ext_safeprojectname$.' } |
-            Set-Content $file.PSPath;
+                Foreach-Object { $_ -replace " ${baseName}\.", ' $ext_safeprojectname$.' } |
+                Set-Content $file.PSPath;
 
             (Get-Content $file.PSPath) |
-            Foreach-Object { $_  -replace '\$safeprojectname\$', "`$ext_safeprojectname`$.${project}" } |
-            Set-Content $file.PSPath;
+                Foreach-Object { $_  -replace '\$safeprojectname\$', "`$ext_safeprojectname`$.${project}" } |
+                Set-Content $file.PSPath;
         }
 
         #replaces for vstemplate file
         $templateFile = Get-ChildItem "${folderPath}\output\${projectFullName}" "MyTemplate.vstemplate";
         (Get-Content $templateFile.PSPath) |
-        Foreach-Object { $_ -replace "TargetFileName=`"${baseName}.", 'TargetFileName="$ext_safeprojectname$.' } |
-        Set-Content $templateFile.PSPath;        
+            Foreach-Object { $_ -replace "TargetFileName=`"${baseName}.", 'TargetFileName="$ext_safeprojectname$.' } |
+            Set-Content $templateFile.PSPath;    
+        (Get-Content $templateFile.PSPath) |
+            Foreach-Object { $_ -replace "</TemplateData>", '  <Hidden>true</Hidden>
+  </TemplateData>' } |
+            Set-Content $templateFile.PSPath;   
+                
 
         #replaces for csproj file
         $csprojFile = Get-ChildItem "${folderPath}\output\${projectFullName}" *.csproj;
         (Get-Content $csprojFile.PSPath) |
-        Foreach-Object { $_ -replace "${baseName}.", '$ext_safeprojectname$.' } |
-        Set-Content $csprojFile.PSPath;
+            Foreach-Object { $_ -replace "${baseName}.", '$ext_safeprojectname$.' } |
+            Set-Content $csprojFile.PSPath;
 
         #files renames       
         Rename-Item -Path "${folderPath}\output\${projectFullName}\MyTemplate.vstemplate" -NewName "${project}.vstemplate";

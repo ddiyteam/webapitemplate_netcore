@@ -1,7 +1,7 @@
 <VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="ProjectGroup">
   <TemplateData>
-    <Name>Web API Template (.NET Core)</Name>
-    <Description>.NET Core WebAPI template with JWT token auth, DB connection and HTTP client proxy examples.</Description>
+    <Name>Web API Template (.NET Core 2.x)</Name>
+    <Description>.NET Core 2.x Web API template with JWT token auth, DB connection, Health checks and HTTP client proxy examples.</Description>
     <ProjectType>CSharp</ProjectType> 
 	<ShowByDefault>true</ShowByDefault>	
     <SortOrder>10</SortOrder>

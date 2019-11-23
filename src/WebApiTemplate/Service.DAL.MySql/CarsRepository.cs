@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Options;
 using MySql.Data.MySqlClient;
 using Service.DAL.MySql.Contract;
@@ -6,11 +7,12 @@ using Service.DAL.MySql.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Service.DAL.MySql
 {
-    public class CarsRepository : ICarsRepository
+    public class CarsRepository : ICarsRepository, IHealthCheck
     {
 
         private readonly IOptionsMonitor<CarsMySqlRepositoryOption> _options;
@@ -109,6 +111,23 @@ namespace Service.DAL.MySql
                 FROM cars
                 LIMIT @pageSize OFFSET @offset;";
                 return await db.QueryAsync<CarEntity>(sqlQuery, new { pageSize, offset }, commandType: CommandType.Text);
+            }
+        }
+
+        public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = new CancellationToken())
+        {
+            using (var db = new MySqlConnection(_options.CurrentValue.CarsDbConnectionString))
+            {
+                try
+                {
+                    db.Open();
+                    db.Close();
+                    return Task.FromResult(HealthCheckResult.Healthy());
+                }
+                catch
+                {
+                    return Task.FromResult(HealthCheckResult.Unhealthy());
+                }
             }
         }
     }

@@ -48,11 +48,6 @@
             <param name="pageSize">Page size</param>
             <returns></returns>
         </member>
-        <member name="T:Service.API.Controllers.TodoController">
-            <summary>
-            Todos mock web proxy 
-            </summary>
-        </member>
         <member name="M:Service.API.Controllers.TodoController.#ctor(AutoMapper.IMapper,Service.BLL.TodosMockProxyService)">
             <summary>
             Todos mock web proxy 

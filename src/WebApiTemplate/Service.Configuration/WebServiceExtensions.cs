@@ -1,5 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Polly;
 using Service.BLL;
 using Service.BLL.Contracts;
@@ -7,6 +12,7 @@ using Service.BLL.Models;
 using Service.DAL.MySql;
 using Service.DAL.MySql.Contract;
 using System;
+using System.Linq;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -45,7 +51,32 @@ namespace Microsoft.Extensions.DependencyInjection
                 p.WaitAndRetryAsync(3, _ => TimeSpan.FromMilliseconds(600))
             );
 
+            services.AddHealthChecks()
+                .AddCheck<CarsRepository>("CarsRepository")
+                .AddCheck<TodosMockProxyService>("TodosMockProxyService");
+
             return services;
+        }
+
+        public static IApplicationBuilder UseWebServices(this IApplicationBuilder app)
+        {
+            app.UseHealthChecks("/api/health", new HealthCheckOptions()
+            {
+                ResponseWriter = (httpContext, result) =>
+                {
+                    httpContext.Response.ContentType = "application/json";
+
+                    var json = new JObject(
+                        new JProperty("status", result.Status.ToString()),
+                        new JProperty("results", new JObject(result.Entries.Select(pair =>
+                            new JProperty(pair.Key, new JObject(
+                                new JProperty("status", pair.Value.Status.ToString())))))));
+                    return httpContext.Response.WriteAsync(
+                        json.ToString(Formatting.Indented));
+                }
+            });
+
+            return app;
         }
     }
 }

@@ -1,12 +1,14 @@
-﻿using Service.BLL.Contracts;
+﻿using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Service.BLL.Contracts;
 using Service.BLL.Models;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Service.BLL
 {
-    public class TodosMockProxyService: ITodosMockProxyService
+    public class TodosMockProxyService: ITodosMockProxyService, IHealthCheck
     {
         private HttpClient _client { get; }       
 
@@ -35,6 +37,20 @@ namespace Service.BLL
             }
             var result = await response.Content.ReadAsAsync<Todo>();
             return result;
+        }
+
+        public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = new CancellationToken())
+        {
+            try
+            {
+                var response = await _client.SendAsync(new HttpRequestMessage(HttpMethod.Head, _client.BaseAddress));
+                response.EnsureSuccessStatusCode();
+                return HealthCheckResult.Healthy();
+            }
+            catch
+            {
+                return HealthCheckResult.Unhealthy();
+            }
         }
     }
 }

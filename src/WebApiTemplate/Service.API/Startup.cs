@@ -43,9 +43,9 @@ namespace Service.API
             services.AddWebServices(
                 BLLOptionsSection: Configuration.GetSection("AppSettings"),
                 DALOptionSection: Configuration.GetSection("ConnectionStrings")
-            );           
+            );
 
-            services.AddAutoMapper();             
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddHttpClient();
 
             services.AddVersionedApiExplorer(opt =>
@@ -163,6 +163,9 @@ namespace Service.API
             
             app.UseHttpsRedirection();
             app.UseAuthentication();
+
+            app.UseWebServices();
+
             app.UseMvc();
         }
 
