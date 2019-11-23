@@ -31,7 +31,7 @@ Preview
 
 How to use
 ----
-- Install project template in Visual Studio 2019.<br/>Extensions -> Manage Extensions -> Online -> Visual Studio Marketplace -> Search: Web API Template (.NET Core 3.0)
+- Install project template in Visual Studio 2019.<br/>Extensions -> Manage Extensions -> Online -> Visual Studio Marketplace -> Search: Web API Template (.NET Core 3.x)
 
 - Manualy download and install VSIX Package for Visual Studio 2019 from Visual Studio marketplace.<br/>https://marketplace.visualstudio.com/items?itemName=ddiyteam.WebApiTemplateNetCore3
 
