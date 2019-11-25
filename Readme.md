@@ -1,5 +1,9 @@
  ###  WebAPI template with JWT token auth, DB connection, Health checks and HTTP client proxy examples.
 
+```
+This branch for .Net Core 3.0 template. To use older .Net Core 2.2 swith to release/netcore2.2 branch.
+```
+
 Projects template description
 ----
 
