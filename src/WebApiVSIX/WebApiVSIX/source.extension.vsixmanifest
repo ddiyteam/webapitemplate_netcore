@@ -2,12 +2,12 @@
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
         <Identity Id="WebApiTemplateNetCore.096c860b-2f07-4bf4-bfce-218f1cd83fc1" Version="1.1" Language="en-US" Publisher="ddiyteam" />
-        <DisplayName>Web API Template (.NET Core 2.x)</DisplayName>
-        <Description xml:space="preserve">.NET Core Web 2.x API template with JWT token auth, DB connection, Health checks and HTTP client proxy examples.</Description>
+        <DisplayName>Web API Template (.NET Core 2.2)</DisplayName>
+        <Description xml:space="preserve">.NET Core Web 2.2 API template with JWT token auth, DB connection, Health checks and HTTP client proxy examples.</Description>
         <MoreInfo>https://github.com/ddiyteam/webapitemplate_netcore/tree/release/netcore2.2</MoreInfo>
         <License>License.txt</License>
         <Icon>TemplateIcon.png</Icon>
-        <Tags >.NET Core, AutoMapper, Dapper, HttpClient, MySql, Swagger, Template, Tests, Visual Studio 2017, Web API, API, API Versioning, Web API, XUnit</Tags>
+        <Tags >.NET Core, .NET Core 2.2, AutoMapper, Dapper, HttpClient, MySql, Swagger, Template, Tests, Visual Studio 2017, Web API, API, API Versioning, Web API, XUnit</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0, 16.0)" />

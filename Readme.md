@@ -1,7 +1,7 @@
  ###  Web API template with JWT token auth, DB connection, Health checks and HTTP client proxy examples.
 
 ```
-This branch for .Net Core 2.2 template. To use newer .Net Core 3.0 swith to master branch.
+This branch is for .Net Core 2.2 template. To use newer .Net Core 3.x template switch to master branch.
 ```
 
 Projects template description
@@ -35,7 +35,7 @@ Preview
 
 How to use
 ----
-- Install project template in Visual Studio 2017.<br/>Tools -> Extensions and Updates -> Online -> Visual Studio Marketplace -> Search: Web API Template (.NET Core 2.x)
+- Install project template in Visual Studio 2017.<br/>Tools -> Extensions and Updates -> Online -> Visual Studio Marketplace -> Search: Web API Template (.NET Core 2.2)
 
 - Manually download and install VSIX Package for Visual Studio 2017 from Visual Studio marketplace.<br/>https://marketplace.visualstudio.com/items?itemName=ddiyteam.WebApiTemplateNetCore
 
