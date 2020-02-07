@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="WebApiTemplateNetCore3.096c860b-2f07-4bf4-bfce-218f1cd83fc2" Version="1.0" Language="en-US" Publisher="ddiyteam" />
-        <DisplayName>Web API Template (.NET Core 3.x)</DisplayName>
-        <Description xml:space="preserve">.NET Core 3.x Web API template with JWT token auth, DB connection, Health checks and HTTP client proxy examples.</Description>
+        <Identity Id="WebApiTemplateNetCore3.096c860b-2f07-4bf4-bfce-218f1cd83fc2" Version="1.1" Language="en-US" Publisher="ddiyteam" />
+        <DisplayName>Web API Template (.NET Core 3.1)</DisplayName>
+        <Description xml:space="preserve">.NET Core 3.1 Web API template with JWT token auth, DB connection, Health checks and HTTP client proxy examples.</Description>
         <MoreInfo>https://github.com/ddiyteam/webapitemplate_netcore</MoreInfo>
         <License>License.txt</License>
         <Icon>TemplateIcon.png</Icon>
-        <Tags >.NET Core, AutoMapper, Dapper, HttpClient, Health, MySql, Swagger, Template, Tests, Visual Studio 2019, Web API, API, API Versioning, XUnit</Tags>
+        <Tags >.NET Core, .NET Core 3.1, AutoMapper, Dapper, HttpClient, Health, MySql, Swagger, Template, Tests, Visual Studio 2019, Web API, API, API Versioning, XUnit</Tags>
     </Metadata>
     <Installation>
-        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0,)" />
-        <InstallationTarget Version="[16.0,)" Id="Microsoft.VisualStudio.Enterprise" />
-        <InstallationTarget Version="[16.0,)" Id="Microsoft.VisualStudio.Pro" />
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0,17.0)" />
+        <InstallationTarget Version="[16.0,17.0)" Id="Microsoft.VisualStudio.Enterprise" />
+        <InstallationTarget Version="[16.0,17.0)" Id="Microsoft.VisualStudio.Pro" />
     </Installation>
     <Dependencies>
     </Dependencies>
@@ -20,6 +20,6 @@
         <Asset Type="Microsoft.VisualStudio.ProjectTemplate" Path="ProjectTemplates" d:Source="File" d:TargetPath="ProjectTemplates\CSharp\Web\WebAPI_Template.zip" />
     </Assets>
     <Prerequisites>
-        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[16.0,)" DisplayName="Visual Studio core editor" />
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[16.0,17.0)" DisplayName="Visual Studio core editor" />
     </Prerequisites>
 </PackageManifest>

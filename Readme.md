@@ -1,7 +1,7 @@
  ###  WebAPI template with JWT token auth, DB connection, Health checks and HTTP client proxy examples.
 
 ```
-This branch for .Net Core 3.0 template. To use older .Net Core 2.2 swith to release/netcore2.2 branch.
+This branch is for .Net Core 3.1 template. To use older .Net Core 2.2 template switch to release/netcore2.2 branch.
 ```
 
 Projects template description
@@ -16,7 +16,7 @@ Projects template description
 
 Usings
 ----
- - .NET Core 3.0 
+ - .NET Core 3.1
  - Serilog for logging and exception handling
  - AutoMapper for models mappings
  - API versioning
@@ -35,7 +35,7 @@ Preview
 
 How to use
 ----
-- Install project template in Visual Studio 2019.<br/>Extensions -> Manage Extensions -> Online -> Visual Studio Marketplace -> Search: Web API Template (.NET Core 3.x)
+- Install project template in Visual Studio 2019.<br/>Extensions -> Manage Extensions -> Online -> Visual Studio Marketplace -> Search: Web API Template (.NET Core 3.1)
 
 - Manualy download and install VSIX Package for Visual Studio 2019 from Visual Studio marketplace.<br/>https://marketplace.visualstudio.com/items?itemName=ddiyteam.WebApiTemplateNetCore3
 
