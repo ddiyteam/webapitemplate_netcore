@@ -8,12 +8,15 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Service.API.Middleware;
 using Service.API.Models;
+using Service.API.Swagger;
 using Swashbuckle.AspNetCore.Filters;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.IO;
 using System.Linq;
@@ -73,14 +76,9 @@ namespace Service.API
                     .AllowCredentials());
             });
 
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             services.AddSwaggerGen(opt =>
-            {
-                var provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
-                foreach (var description in provider.ApiVersionDescriptions)
-                {
-                    opt.SwaggerDoc(description.GroupName, GetSwaggerDocInfo(description));
-                }
-                
+            {  
                 opt.ExampleFilters(); 
 
                 var xmlPath = GetXmlDataAnnotationFilePath();
@@ -96,8 +94,7 @@ namespace Service.API
                     Name = "authorization",
                     Type = SecuritySchemeType.ApiKey
                 });
-                opt.OperationFilter<SecurityRequirementsOperationFilter>();
-                //opt.OperationFilter<SwaggerDefaultValues>();
+                opt.OperationFilter<SecurityRequirementsOperationFilter>();                
             });
 
             var key = Encoding.ASCII.GetBytes(appSettings.JwtSecretKey);
@@ -183,32 +180,7 @@ namespace Service.API
             }
 
             return xmlPath;
-        }
-
-        private OpenApiInfo GetSwaggerDocInfo(ApiVersionDescription description)
-        {
-            var info = new OpenApiInfo
-            {
-                Title = $"WebAPI {description.ApiVersion}",
-                Version = description.GroupName,
-                Description = "Web API Template",                
-                Contact = new OpenApiContact()
-                {
-                    Name = "Web API service" 
-                },
-                License = new OpenApiLicense()
-                {
-                    Name = "MIT"                    
-                }
-            };
-
-            if (description.IsDeprecated)
-            {
-                info.Description += $" {description.ApiVersion} API version is deprecated.";
-            }
-
-            return info;           
-        }
+        }       
 
         #endregion
     }
